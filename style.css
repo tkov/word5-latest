@@ -34,7 +34,7 @@ h1 {
 button {
   text-transform: uppercase;
   text-decoration: bold;
-  border-radius: 3px;
+  border-radius: 3px !important;
 }
 
 .box {
