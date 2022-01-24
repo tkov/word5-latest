@@ -7,6 +7,13 @@
   /* font-family: 'Roboto', sans-serif; */
 }
 
+input[type=text], input[type=button], button {
+  -moz-appearance:none;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
 h1 { 
   font-size: 20px;
   font-weight: 400;
@@ -25,7 +32,7 @@ h1 {
   padding: 10px;
 }
 
-.button {
+button {
   text-transform: uppercase;
   text-decoration: bold;
 }
@@ -65,9 +72,29 @@ h1 {
 }
 
 .fade {
+  -webkit-animation: errorMessage 5s;
+  -moz-animation: errorMessage 5s;
   animation: errorMessage 5s;
   /* transition: opacity 10s ease-out; */
   /* opacity: 0; */
+}
+
+@-webkit-keyframes errorMessage {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
+@-moz-keyframes errorMessage {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
 }
 
 @keyframes errorMessage {
