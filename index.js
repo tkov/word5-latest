@@ -8,13 +8,13 @@ var letterIndex = 0;
 var guessIndex = 0;
 
 var buttons = [];
-var dict = createTargetDict();
 
 var userWord = [];
 // var testWord = ['q','u','i','e','t'];
 
 var targetWord = randomWord();
 console.log(targetWord);
+var dict = createTargetDict();
 
 // message node
 var message = document.getElementById('message');
