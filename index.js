@@ -178,7 +178,7 @@ function ouputMessage(isError, msg) {
 
 function createTargetDict(){ 
   dict = {}
-  for(var c of target){
+  for(var c of targetWord){
     if (dict[c]){
       dict[c] += 1;
     }
