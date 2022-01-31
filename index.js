@@ -208,27 +208,49 @@ function checkWord() {
   
   var clone = document.getElementById('clone');
 
+  console.log(t_dict);
+
   for (var i = 0; i < WORD_SIZE; i++) {
     j = 0;
     if (userWord[i] === targetWord[i]) {
       colors.push({ [userWord[i]]: 'green'});
       colorGreen(i);
+      t_dict[userWord[i]]--; 
       
-      if (t_dict[userWord[i]] == 0){
+      if (t_dict[userWord[i]] <= 0){
         for (var elem of colors){
            if (elem[userWord[i]] == 'yellow') {
+            // console.log('Found yellow!');
             elem[userWord[i]] = 'grey';
             colorGray(j);
            }
            j++;
         }
       }
-      t_dict[userWord[i]]--; 
+      
       continue;
     }
     else if (targetWord.includes(userWord[i])){
       colors.push({ [userWord[i]] : 'yellow'});
       colorYellow(i);
+      if (t_dict[userWord[i]] == 0){
+        for (var elem of colors){
+           if (elem[userWord[i]] == 'green') {
+            // console.log('Found green!');
+            colors.pop();
+            colors.push({ [userWord[i]] : 'grey'});
+            colorGray(i);
+           }
+           else if (elem[userWord[i]] == 'yellow') {
+            // console.log('Found yellow!');
+            elem[userWord[i]] = 'grey';
+            colorGray(j);
+            continue;
+           }
+
+           j++;
+        }
+      }
       t_dict[userWord[i]]--; 
     }
     else {
@@ -237,6 +259,7 @@ function checkWord() {
     }
 
   }
+  console.log(t_dict);
   return colors;
 }
 
