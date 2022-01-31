@@ -12,6 +12,9 @@ var buttons = [];
 var userWord = [];
 // var testWord = ['q','u','i','e','t'];
 
+
+var didEnd = false;
+
 var targetWord = randomWord();
 console.log(targetWord);
 var dict = createTargetDict();
@@ -36,20 +39,20 @@ document.addEventListener('keydown', function onPress(event) {
 
   const regex = /[a-z]/g;
 
-  if (event.key[0].match(regex)){
+  if (!didEnd && event.key[0].match(regex)){
     // console.log("A valid letter key!");
     handleLetterKey(event.key);
   }
-  else if (event.key === 'Backspace'){
+  else if (!didEnd && event.key === 'Backspace'){
     // console.log('Backspace');
     handleBackKey();
   }
-  else if (event.key === 'Enter'){
+  else if (!didEnd && event.key === 'Enter'){
     // console.log('Enter');
     handleEnterKey();
   }
-  else if (event.key === ' '){
-    // console.log('Space Bar'); 
+  else if (didEnd && event.key === ' '){
+    console.log('Space Bar'); 
     document.getElementById('new-game-key').disabled = true;
     handleSpaceKey();
   }
@@ -142,7 +145,7 @@ function handleEnterKey() {
   // move to next guess row
   if ((guessIndex + 1) == GUESSES){
     // game over (LOSS) -- disable button, show word, enable new game
-    ouputMessage(true, 'Sorry... you lose.');
+    ouputMessage(true, 'Sorry. You lose!');
     endGame();
     return;
   }
@@ -170,9 +173,11 @@ function ouputMessage(isError, msg) {
     message.style.display = 'block';
     message.innerHTML = msg;
 
+    var title = document.querySelector('h1');
+    title.style.color = 'white';
     if (!isError) message.style.backgroundColor = '#357847';
     message.classList.add('fade');
-    setTimeout(()=> {message.classList.remove('fade'); message.style.display = 'none';},3000);
+    setTimeout(()=> {message.classList.remove('fade'); message.style.display = 'none'; title.style.color = '#2d2d2d';},3000);
 }
 
 
@@ -279,6 +284,7 @@ function colorGray(i){
 
 
 function endGame() {
+  didEnd = true;
   for (var key of document.getElementsByClassName('main-key')){
     key.disabled = true;
   }
@@ -298,6 +304,7 @@ function endGame() {
 
 
 function newGame() {
+  didEnd = false;
   letterIndex = 0;
   guessIndex = 0;
   buttons = [];
@@ -322,6 +329,7 @@ function newGame() {
 
   // grab a new word
   targetWord = randomWord();
+  console.log(targetWord);
 }
 
 // const mode = document.getElementById('mode');

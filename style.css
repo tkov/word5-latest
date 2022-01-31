@@ -21,6 +21,10 @@ h1 {
   text-align: center;
 }
 
+.hidden {
+  opactiy: 0;
+}
+
 .row {
   background: #f8f9fa;
   margin-top: 20px;
@@ -68,7 +72,8 @@ button {
   padding: .5rem;
   background-color: #6e0202;
   color: white;
-  width: max-content;
+  /*width: max-content;*/
+  width: 268px;
 }
 
 .fade {
@@ -175,7 +180,7 @@ hr {
 #new-game button {width: 100%}
 
 #message {
-  margin: 0 auto;
+  margin: 0 auto; 
   /* margin-top: 10px; */
   text-align: center;
   font-family: 'Roboto', sans-serif;
