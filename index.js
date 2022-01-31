@@ -8,6 +8,7 @@ var letterIndex = 0;
 var guessIndex = 0;
 
 var buttons = [];
+var dict = createTargetDict();
 
 var userWord = [];
 // var testWord = ['q','u','i','e','t'];
@@ -174,7 +175,20 @@ function ouputMessage(isError, msg) {
     setTimeout(()=> {message.classList.remove('fade'); message.style.display = 'none';},3000);
 }
 
-dict = {}
+
+function createTargetDict(){ 
+  dict = {}
+  for(var c of target){
+    if (dict[c]){
+      dict[c] += 1;
+    }
+    else{
+      dict[c] = 1;
+    }
+  }
+  return dict;
+}
+
 
 function checkWord() {
   existFlag = false;
@@ -288,6 +302,7 @@ function newGame() {
   guessIndex = 0;
   buttons = [];
   userWord = [];
+  dict = createTargetDict();
   message.style.backgroundColor = '#6e0202';
 
   for (var box of document.getElementsByClassName('box')){
