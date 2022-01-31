@@ -121,8 +121,10 @@ function handleEnterKey() {
 
   // handle checking
   colors = checkWord();
-  console.log(colors);
+  colors = colors.map((elem) => Object.values(elem)[0]);
 
+  console.log(colors);
+  // console.log(Object.values(colors));
   if (colors.every((elem) => elem =='green')) {
     // game over (WIN) -- disable buttons, enable new game...
     ouputMessage(false, 'Good job!');
@@ -169,13 +171,16 @@ function ouputMessage(isError, msg) {
 
     if (!isError) message.style.backgroundColor = '#357847';
     message.classList.add('fade');
-    setTimeout(()=> {message.classList.remove('fade'); message.style.display = 'none';},10000);
+    setTimeout(()=> {message.classList.remove('fade'); message.style.display = 'none';},3000);
 }
+
+dict = {}
 
 function checkWord() {
   existFlag = false;
   colored = false;
   colors = []
+  t_dict = {...dict};
 
   duplicate = false;
 
@@ -184,59 +189,80 @@ function checkWord() {
   var clone = document.getElementById('clone');
 
   for (var i = 0; i < WORD_SIZE; i++) {
-
-    if (userWord[i] === targetWord[i]){
-      // matched letter
-
-      targetLetters.splice(i, 1, '_');
-
-      colors.push('green');
-      guessRow[i].style.color = 'white';
-      guessRow[i].style.backgroundColor = '#357847';
-  
-      buttons[i].style = clone.style;
-      buttons[i].style.color = 'white';
-      buttons[i].style.backgroundColor = '#357847';
-      buttons[i].style.border = 'none';
-      buttons[i].style.borderRadius = '3px';
-      buttons[i].style.border = '2px solid #357847';
+    j = 0;
+    if (userWord[i] === targetWord[i]) {
+      colors.push({ [userWord[i]]: 'green'});
+      colorGreen(i);
+      
+      if (t_dict[userWord[i]] == 0){
+        for (var elem of colors){
+           if (elem[userWord[i]] == 'yellow') {
+            elem[userWord[i]] = 'grey';
+            colorGray(j);
+           }
+           j++;
+        }
+      }
+      t_dict[userWord[i]]--; 
+      continue;
     }
-    else if (targetLetters.join('').includes(userWord[i])){
-      colors.push('yellow');
-
-      guessRow[i].style.color = 'white';
-      guessRow[i].style.backgroundColor = '#b8a130';
-      
-      if (buttons[i].style.backgroundColor == 'rgb(53, 120, 71)') continue;
-      
-
-      
-      buttons[i].style.color = 'white';
-      buttons[i].style.backgroundColor = '#b8a130';
-      buttons[i].style.border = 'none';
-      buttons[i].style.borderRadius = '3px';
-      buttons[i].style.border = '2px solid #b8a130';
+    else if (targetWord.includes(userWord[i])){
+      colors.push({ [userWord[i]] : 'yellow'});
+      colorYellow(i);
+      t_dict[userWord[i]]--; 
     }
     else {
-      colors.push('grey');
-
-      guessRow[i].style.color = 'white';
-      guessRow[i].style.backgroundColor = '#2d2d2d';
-      
-
-      if (buttons[i].style.backgroundColor == 'rgb(53, 120, 71)' || buttons[i].style.backgroundColor == 'rgb(184, 161, 48)') continue; 
-
-      buttons[i].style.color = 'white';
-      buttons[i].style.backgroundColor = '#2d2d2d';
-      // buttons[i].style = clone.style;
-      buttons[i].style.border = 'none';
-      buttons[i].style.borderRadius = '3px';
-      buttons[i].style.border = '2px solid #2d2d2d';
+      colors.push({ [userWord[i]]: 'grey'})
+      colorGray(i);
     }
 
   }
   return colors;
 }
+
+
+function colorGreen(i){
+  guessRow[i].style.color = 'white';
+  guessRow[i].style.backgroundColor = '#357847';
+
+  buttons[i].style = clone.style;
+  buttons[i].style.color = 'white';
+  buttons[i].style.backgroundColor = '#357847';
+  buttons[i].style.border = 'none';
+  buttons[i].style.borderRadius = '3px';
+  buttons[i].style.border = '2px solid #357847';
+}
+
+function colorYellow(i){
+  guessRow[i].style.color = 'white';
+  guessRow[i].style.backgroundColor = '#b8a130';
+  
+  if (buttons[i].style.backgroundColor == 'rgb(53, 120, 71)') return;
+  
+
+  
+  buttons[i].style.color = 'white';
+  buttons[i].style.backgroundColor = '#b8a130';
+  buttons[i].style.border = 'none';
+  buttons[i].style.borderRadius = '3px';
+  buttons[i].style.border = '2px solid #b8a130';
+}
+
+function colorGray(i){
+  guessRow[i].style.color = 'white';
+  guessRow[i].style.backgroundColor = '#2d2d2d';
+  
+
+  if (buttons[i].style.backgroundColor == 'rgb(53, 120, 71)' || buttons[i].style.backgroundColor == 'rgb(184, 161, 48)') return; 
+
+  buttons[i].style.color = 'white';
+  buttons[i].style.backgroundColor = '#2d2d2d';
+  // buttons[i].style = clone.style;
+  buttons[i].style.border = 'none';
+  buttons[i].style.borderRadius = '3px';
+  buttons[i].style.border = '2px solid #2d2d2d';
+}
+
 
 function endGame() {
   for (var key of document.getElementsByClassName('main-key')){
@@ -262,6 +288,7 @@ function newGame() {
   guessIndex = 0;
   buttons = [];
   userWord = [];
+  message.style.backgroundColor = '#6e0202';
 
   for (var box of document.getElementsByClassName('box')){
     box.style.backgroundColor = 'white';
