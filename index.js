@@ -52,7 +52,7 @@ document.addEventListener('keydown', function onPress(event) {
     handleEnterKey();
   }
   else if (didEnd && event.key === ' '){
-    console.log('Space Bar'); 
+    // console.log('Space Bar'); 
     document.getElementById('new-game-key').disabled = true;
     handleSpaceKey();
   }
