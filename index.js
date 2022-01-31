@@ -36,7 +36,7 @@ const keyboard = document.getElementById('keyboard');
 
 
 document.addEventListener('keydown', function onPress(event) {
-
+  event.preventDefault();
   const regex = /[a-z]/g;
 
   if (!didEnd && event.key[0].match(regex)){
@@ -53,6 +53,7 @@ document.addEventListener('keydown', function onPress(event) {
   }
   else if (didEnd && event.key === ' '){
     // console.log('Space Bar'); 
+    // event.preventDefault();
     document.getElementById('new-game-key').disabled = true;
     handleSpaceKey();
   }
