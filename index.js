@@ -45,11 +45,11 @@ document.addEventListener('keydown', function onPress(event) {
     handleBackKey();
   }
   else if (event.key === 'Enter'){
-    console.log('Enter');
+    // console.log('Enter');
     handleEnterKey();
   }
   else if (event.key === ' '){
-    console.log('Space Bar'); 
+    // console.log('Space Bar'); 
     document.getElementById('new-game-key').disabled = true;
     handleSpaceKey();
   }
@@ -74,7 +74,7 @@ keyboard.addEventListener('click', (event) => {
     handleEnterKey();
   }
   else if (key == 'new game'){
-    console.log('Pressed the NEW GAME key');
+    // console.log('Pressed the NEW GAME key');
     event.target.disabled = true;
     handleSpaceKey();
     return;
@@ -100,7 +100,7 @@ function handleLetterKey(key) {
 }
 
 function handleBackKey() {
-    console.log('Pressed the BACK key...');
+    // console.log('Pressed the BACK key...');
     if (!letterIndex) return;
 
     letterCol = guessRow[--letterIndex];
@@ -124,7 +124,7 @@ function handleEnterKey() {
   colors = checkWord();
   colors = colors.map((elem) => Object.values(elem)[0]);
 
-  console.log(colors);
+  // console.log(colors);
   // console.log(Object.values(colors));
   if (colors.every((elem) => elem =='green')) {
     // game over (WIN) -- disable buttons, enable new game...
