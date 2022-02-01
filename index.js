@@ -333,6 +333,10 @@ function newGame() {
   guessIndex = 0;
   buttons = [];
   userWord = [];
+  // grab a new word
+  targetWord = randomWord();
+  console.log(targetWord);
+  
   dict = createTargetDict();
   t_dict = {};
   message.style.backgroundColor = '#6e0202';
@@ -352,9 +356,7 @@ function newGame() {
   guessRow = document.getElementById(`guess-${guessIndex + 1}`).children;
   letterCol = guessRow[letterIndex];
 
-  // grab a new word
-  targetWord = randomWord();
-  console.log(targetWord);
+ 
 }
 
 // const mode = document.getElementById('mode');
