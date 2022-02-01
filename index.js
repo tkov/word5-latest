@@ -334,7 +334,7 @@ function newGame() {
   buttons = [];
   userWord = [];
   dict = createTargetDict();
-  var t_dict = {};
+  t_dict = {};
   message.style.backgroundColor = '#6e0202';
 
   for (var box of document.getElementsByClassName('box')){
