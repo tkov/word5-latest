@@ -46,6 +46,8 @@ button {
   text-transform: uppercase;
   text-decoration: bold;
   border-radius: 3px !important;
+  /* */
+  touch-action: none;
 }
 
 .box {
