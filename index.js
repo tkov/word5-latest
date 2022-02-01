@@ -18,7 +18,7 @@ var didEnd = false;
 var targetWord = randomWord();
 console.log(targetWord);
 var dict = createTargetDict();
-
+var t_dict = {};
 // message node
 var message = document.getElementById('message');
 
@@ -334,6 +334,7 @@ function newGame() {
   buttons = [];
   userWord = [];
   dict = createTargetDict();
+  var t_dict = {};
   message.style.backgroundColor = '#6e0202';
 
   for (var box of document.getElementsByClassName('box')){
