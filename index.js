@@ -208,8 +208,6 @@ function checkWord() {
   
   var clone = document.getElementById('clone');
 
-  console.log(t_dict);
-
   for (var i = 0; i < WORD_SIZE; i++) {
     j = 0;
     if (userWord[i] === targetWord[i]) {
@@ -259,7 +257,6 @@ function checkWord() {
     }
 
   }
-  console.log(t_dict);
   return colors;
 }
 
